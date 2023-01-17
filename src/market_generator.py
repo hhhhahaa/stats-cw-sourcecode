@@ -46,7 +46,7 @@ class MarketGenerator:
 
 
     def _load_data(self):
-      self.data = pd.read_csv(self.dataPath, index_col = self.index, 
+      self.data = pd.read_csv(self.dataPath, index_col = self.index_col, 
       usecols = self.usecols)
       self.data.index = pd.to_datetime(self.data.index,format=self.dateformat)
       if isinstance(self.data.iloc[1,0], str):
