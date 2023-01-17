@@ -17,7 +17,6 @@ class MarketGenerator:
                  data_path = '', index_col = 'Date',
                  usefulcols = ['Date','Price'], dateformat = '%m/%d/%Y'):
 
-        self.ticker = ticker
         self.start = start
         self.end = end
         self.freq = freq
