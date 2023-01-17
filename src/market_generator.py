@@ -14,7 +14,7 @@ class MarketGenerator:
     def __init__(self, start=datetime.date(2000, 1, 1),
                  end=datetime.date(2019, 1, 1), freq="M",
                  sig_order=4, rough_bergomi=None, 
-                 data_path = data_path, index_col = 'Date',
+                 data_path = '', index_col = 'Date',
                  usefcols = ['Date','Price'], dateformat = '%m/%d/%Y'):
 
         self.ticker = ticker
