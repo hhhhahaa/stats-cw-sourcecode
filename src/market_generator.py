@@ -11,10 +11,11 @@ from cvae import CVAE
 from rough_bergomi import rough_bergomi
 
 class MarketGenerator:
-    def __init__(self, ticker, start=datetime.date(2000, 1, 1),
+    def __init__(self, start=datetime.date(2000, 1, 1),
                  end=datetime.date(2019, 1, 1), freq="M",
                  sig_order=4, rough_bergomi=None, 
-                 data_path = './drive/MyDrive/market_simulator/src/S&P 500 Historical Data.csv'):
+                 data_path = data_path, index_col = 'Date',
+                 usefcols = ['Date','Price'], dateformat = '%m/%d/%Y'):
 
         self.ticker = ticker
         self.start = start
@@ -22,6 +23,9 @@ class MarketGenerator:
         self.freq = freq
         self.order = sig_order
         self.dataPath = data_path
+        self.index_col = index_col
+        self.usecols = usefulcols
+        self.dateformat = dateformat
 
         if rough_bergomi:
              self._load_rough_bergomi(rough_bergomi)
@@ -42,10 +46,12 @@ class MarketGenerator:
 
 
     def _load_data(self):
-      self.data = pd.read_csv(self.dataPath, index_col = 'Date', usecols = ['Date','Price'])
-      self.data.index = pd.to_datetime(self.data.index,format='%m/%d/%Y')
-      self.data.iloc[:,0] = [x.replace(',', '') for x in self.data.iloc[:,0]]
-      self.data.iloc[:,0] = [float(x) for x in self.data.iloc[:,0]]
+      self.data = pd.read_csv(self.dataPath, index_col = self.index, 
+      usecols = self.usecols)
+      self.data.index = pd.to_datetime(self.data.index,format=self.dateformat)
+      if isinstance(self.data.iloc[1,0], str):
+        self.data.iloc[:,0] = [x.replace(',', '') for x in self.data.iloc[:,0]]
+        self.data.iloc[:,0] = [float(x) for x in self.data.iloc[:,0]]
         # try:
         #     # self.data = pdr.get_data_yahoo(self.ticker, self.start, self.end)["Close"]
         #     # self.data = web.get_data_yahoo(self.ticker, self.start, self.end)["Close"]
