@@ -15,7 +15,7 @@ class MarketGenerator:
                  end=datetime.date(2019, 1, 1), freq="M",
                  sig_order=4, rough_bergomi=None, 
                  data_path = '', index_col = 'Date',
-                 usefcols = ['Date','Price'], dateformat = '%m/%d/%Y'):
+                 usefulcols = ['Date','Price'], dateformat = '%m/%d/%Y'):
 
         self.ticker = ticker
         self.start = start
